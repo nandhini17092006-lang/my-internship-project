@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Food Ordering Website</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="signupPage" class="page active">
+<div class="auth-shell">
+<aside class="auth-left">
+<span class="float f1">🍔</span><span class="float f2">🍕</span><span class="float f3">🍟</span><span class="float f4">🌮</span><span class="float f5">🍩</span><span class="float f6">🥤</span>
+<div class="brand-badge">🍴 Foodie</div>
+<h2>Join the Foodie family 🍴</h2>
+<p>Order your favorite food online</p>
+<ul class="perks"><li>🚀 Fast delivery</li><li>🔥 Fresh &amp; hot</li><li>⭐ Top rated dishes</li></ul>
+</aside>
+<div class="auth-right">
+
+
+<h1 class="main-heading">Foodie signup</h1>
+
+<div class="login-box">
+
+<h2>Signup</h2>
+
+<div class="field"><span class="ico">👤</span><input type="text" id="newUser" placeholder="Username"></div>
+
+<div class="field"><span class="ico">✉️</span><input type="email" id="newEmail" placeholder="Email"></div>
+
+<div class="field"><span class="ico">🔒</span><input type="password" id="newPass" placeholder="Password" oninput="checkStrength(this.value)"><button type="button" class="eye" onclick="togglePass('newPass',this)">👁</button></div>
+<div class="strength"><span id="strengthBar"></span></div><small id="strengthText"></small>
+
+<button onclick="signup()">Signup</button>
+
+<p>
+Already have an account?
+</p>
+
+<a class=\"switch-link\" onclick="showPage('loginPage')">
+Go To Login Page
+</a>
+
+</div>
+
+</div>
+</div>
+</div>
+
+<div id="loginPage" class="page">
+<div class="auth-shell">
+<aside class="auth-left">
+<span class="float f1">🍔</span><span class="float f2">🍕</span><span class="float f3">🍟</span><span class="float f4">🌮</span><span class="float f5">🍩</span><span class="float f6">🥤</span>
+<div class="brand-badge">🍴 Foodie</div>
+<h2>Welcome back, foodie! 👋</h2>
+<p>Order your favorite food online</p>
+<ul class="perks"><li>🚀 Fast delivery</li><li>🔥 Fresh &amp; hot</li><li>⭐ Top rated dishes</li></ul>
+</aside>
+<div class="auth-right">
+
+
+<h1 class="main-heading">
+🍔L🍅G🍕IN🍟
+</h1>
+
+<div class="login-box">
+
+<h2>Login</h2>
+
+<div class="field"><span class="ico">👤</span><input type="text" id="user" placeholder="Username"></div>
+
+<div class="field"><span class="ico">🔒</span><input type="password" id="pass" placeholder="Password"><button type="button" class="eye" onclick="togglePass('pass',this)">👁</button></div>
+
+<button onclick="login()">Login</button>
+
+<p>
+Don't have an account?
+</p>
+
+<a class=\"switch-link\" onclick="showPage('signupPage')">
+Go To Signup Page
+</a>
+
+</div>
+
+</div>
+</div>
+</div>
+<div id="homePage" class="page">
+
+<header>
+    Fast Food Ordering Website
+</header>
+
+<nav>
+   <a onclick="showPage('homePage')">Home</a>
+
+   <button class="nav-btn" onclick="showPage('menuPage')">
+      Menu
+   </button>
+
+   <a onclick="showPage('contactPage')">Contact</a>
+   <a onclick="logout()">Logout</a>
+</nav>
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>Delicious Food Delivered Fast</h1>
+
+        <p>Order your favorite food online</p>
+
+        <button onclick="showPage('menuPage')">
+            Order Now
+        </button>
+
+    </div>
+
+</section>
+
+</div>
+
+<div id="menuPage" class="page">
+
+<h1>
+🍔 Food Menu 🍕
+</h1>
+
+<div class="cart">
+🛒 Cart Items: <span id="cartCount">0</span><br>
+💰 Total: ₹<span id="totalPrice">0</span>
+</div>
+
+<div class="menu-actions">
+<button onclick="viewCart()">View Cart</button>
+<button onclick="showPage('homePage')">🏠 Go to Home</button>
+<button onclick="placeOrder()">📦 Place Order</button>
+</div>
+
+<div class="toolbar">
+<input id="searchBox" type="search" placeholder="🔍 Search food..." oninput="filterMenu()">
+<div class="chips">
+<button class="chip active" onclick="setCategory('all',this)">All</button>
+<button class="chip" onclick="setCategory('burgers',this)">Burgers</button>
+<button class="chip" onclick="setCategory('pizza',this)">Pizza</button>
+<button class="chip" onclick="setCategory('snacks',this)">Snacks</button>
+<button class="chip" onclick="setCategory('wraps',this)">Wraps</button>
+<button class="chip" onclick="setCategory('meals',this)">Meals</button>
+<button class="chip" onclick="setCategory('desserts',this)">Desserts</button>
+<button class="chip" onclick="setCategory('drinks',this)">Drinks</button>
+<button class="chip surprise" onclick="surpriseMe()">🎲 Surprise Me</button>
+<select id="sortBox" class="sort" onchange="sortMenu()"><option value="def">Sort: Default</option><option value="low">Price: Low → High</option><option value="high">Price: High → Low</option><option value="top">Top Rated</option></select>
+</div>
+</div>
+<p id="noResults" class="no-results">No items found 😕</p>
+
+<div class="container">
+
+<div class="card" data-cat="burgers">
+<img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=1000" data-emoji="🍔">
+<h2>Burger</h2>
+<p class="price">₹120</p>
+<p class="rating">⭐⭐⭐⭐⭐ (4.8)</p>
+Qty:
+<input type="number"
+id="burgerQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Burger',120,'burgerQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="pizza">
+<img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1000" data-emoji="🍕">
+<h2>Pizza</h2>
+<p class="price">₹250</p>
+<p class="rating">⭐⭐⭐⭐⭐ (4.9)</p>
+
+Qty:
+<input type="number"
+id="pizzaQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Pizza',250,'pizzaQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="snacks">
+<img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?q=80&w=1000" data-emoji="🥪">
+<h2>Sandwich</h2>
+<p class="price">₹100</p>
+<p class="rating">⭐⭐⭐⭐ (4.5)</p>
+
+Qty:
+<input type="number"
+id="sandwichQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Sandwich',100,'sandwichQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="snacks">
+<img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=1000" data-emoji="🍟">
+<h2>French Fries</h2>
+<p class="price">₹90</p>
+<p class="rating">⭐⭐⭐⭐ (4.4)</p>
+
+Qty:
+<input type="number"
+id="friesQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('French Fries',90,'friesQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="snacks">
+<img src="https://images.unsplash.com/photo-1608039755401-742074f0548d?q=80&w=1000" data-emoji="🍗">
+<h2>Fried Chicken</h2>
+<p class="price">₹180</p>
+<p class="rating">⭐⭐⭐⭐⭐ (4.9)</p>
+
+Qty:
+<input type="number"
+id="chickenQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Fried Chicken',180,'chickenQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="burgers">
+<img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=1000" data-emoji="🍔">
+<h2>Cheese Burger</h2>
+<p class="price">₹150</p>
+<p class="rating">⭐⭐⭐⭐⭐ (4.8)</p>
+
+Qty:
+<input type="number"
+id="cheeseQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Cheese Burger',150,'cheeseQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="wraps">
+<img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=1000" data-emoji="🌯">
+<h2>Shawarma</h2>
+<p class="price">₹130</p>
+<p class="rating">⭐⭐⭐⭐ (4.7)</p>
+
+Qty:
+<input type="number"
+id="shawarmaQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Shawarma',130,'shawarmaQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="meals">
+<img src="https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?auto=format&fit=crop&w=1000&q=80" data-alt="https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=1000&q=80" data-emoji="🍛" onerror="var l=(this.dataset.alt||'').split('|').filter(Boolean);if(l.length){this.dataset.alt=l.slice(1).join('|');this.src=l[0];}else{this.onerror=null;var d=document.createElement('div');d.className='img-fallback';d.textContent=this.dataset.emoji;this.replaceWith(d);}">
+<h2>Chicken Biryani</h2>
+<p class="price">₹220</p>
+<p class="rating">⭐⭐⭐⭐⭐ (4.8)</p>
+Qty:
+<input type="number"
+id="biryaniQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Chicken Biryani',220,'biryaniQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="meals">
+<img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=1000&q=80" data-alt="https://images.unsplash.com/photo-1694849789325-914b71ab4075?auto=format&fit=crop&w=1000&q=80" data-emoji="🥞" onerror="var l=(this.dataset.alt||'').split('|').filter(Boolean);if(l.length){this.dataset.alt=l.slice(1).join('|');this.src=l[0];}else{this.onerror=null;var d=document.createElement('div');d.className='img-fallback';d.textContent=this.dataset.emoji;this.replaceWith(d);}">
+<h2>Masala Dosa</h2>
+<p class="price">₹80</p>
+<p class="rating">⭐⭐⭐⭐ (4.7)</p>
+Qty:
+<input type="number"
+id="dosaQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Masala Dosa',80,'dosaQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="meals">
+<img src="https://images.unsplash.com/photo-1748012199657-3f34292cdf70?auto=format&fit=crop&w=1000&q=80" data-emoji="🍝" onerror="var l=(this.dataset.alt||'').split('|').filter(Boolean);if(l.length){this.dataset.alt=l.slice(1).join('|');this.src=l[0];}else{this.onerror=null;var d=document.createElement('div');d.className='img-fallback';d.textContent=this.dataset.emoji;this.replaceWith(d);}">
+<h2>Creamy Pasta</h2>
+<p class="price">₹170</p>
+<p class="rating">⭐⭐⭐⭐ (4.6)</p>
+Qty:
+<input type="number"
+id="pastaQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Creamy Pasta',170,'pastaQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="meals">
+<img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1000&q=80" data-emoji="🍜" onerror="var l=(this.dataset.alt||'').split('|').filter(Boolean);if(l.length){this.dataset.alt=l.slice(1).join('|');this.src=l[0];}else{this.onerror=null;var d=document.createElement('div');d.className='img-fallback';d.textContent=this.dataset.emoji;this.replaceWith(d);}">
+<h2>Hakka Noodles</h2>
+<p class="price">₹140</p>
+<p class="rating">⭐⭐⭐⭐ (4.5)</p>
+Qty:
+<input type="number"
+id="noodlesQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Hakka Noodles',140,'noodlesQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="desserts">
+<img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?auto=format&fit=crop&w=1000&q=80" data-alt="https://images.unsplash.com/photo-1517427294546-5aa121f68e8a?auto=format&fit=crop&w=1000&q=80" data-emoji="🍰" onerror="var l=(this.dataset.alt||'').split('|').filter(Boolean);if(l.length){this.dataset.alt=l.slice(1).join('|');this.src=l[0];}else{this.onerror=null;var d=document.createElement('div');d.className='img-fallback';d.textContent=this.dataset.emoji;this.replaceWith(d);}">
+<h2>Chocolate Cake</h2>
+<p class="price">₹110</p>
+<p class="rating">⭐⭐⭐⭐⭐ (4.8)</p>
+Qty:
+<input type="number"
+id="cakeQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Chocolate Cake',110,'cakeQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="desserts">
+<img src="https://images.unsplash.com/photo-1649651956954-cd477404e5ed?auto=format&fit=crop&w=1000&q=80" data-alt="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=1000&q=80" data-emoji="🍨" onerror="var l=(this.dataset.alt||'').split('|').filter(Boolean);if(l.length){this.dataset.alt=l.slice(1).join('|');this.src=l[0];}else{this.onerror=null;var d=document.createElement('div');d.className='img-fallback';d.textContent=this.dataset.emoji;this.replaceWith(d);}">
+<h2>Ice Cream</h2>
+<p class="price">₹70</p>
+<p class="rating">⭐⭐⭐⭐ (4.6)</p>
+Qty:
+<input type="number"
+id="creamQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Ice Cream',70,'creamQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="desserts">
+<img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=1000&q=80" data-alt="https://images.unsplash.com/photo-1527515545081-5db817172677?auto=format&fit=crop&w=1000&q=80" data-emoji="🍩" onerror="var l=(this.dataset.alt||'').split('|').filter(Boolean);if(l.length){this.dataset.alt=l.slice(1).join('|');this.src=l[0];}else{this.onerror=null;var d=document.createElement('div');d.className='img-fallback';d.textContent=this.dataset.emoji;this.replaceWith(d);}">
+<h2>Donuts</h2>
+<p class="price">₹60</p>
+<p class="rating">⭐⭐⭐⭐ (4.5)</p>
+Qty:
+<input type="number"
+id="donutsQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Donuts',60,'donutsQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="drinks">
+<img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=1000&q=80" data-emoji="☕" onerror="var l=(this.dataset.alt||'').split('|').filter(Boolean);if(l.length){this.dataset.alt=l.slice(1).join('|');this.src=l[0];}else{this.onerror=null;var d=document.createElement('div');d.className='img-fallback';d.textContent=this.dataset.emoji;this.replaceWith(d);}">
+<h2>Cold Coffee</h2>
+<p class="price">₹90</p>
+<p class="rating">⭐⭐⭐⭐ (4.6)</p>
+Qty:
+<input type="number"
+id="coffeeQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Cold Coffee',90,'coffeeQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="drinks">
+<img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=1000&q=80" data-emoji="🍋" onerror="var l=(this.dataset.alt||'').split('|').filter(Boolean);if(l.length){this.dataset.alt=l.slice(1).join('|');this.src=l[0];}else{this.onerror=null;var d=document.createElement('div');d.className='img-fallback';d.textContent=this.dataset.emoji;this.replaceWith(d);}">
+<h2>Fresh Lime Soda</h2>
+<p class="price">₹50</p>
+<p class="rating">⭐⭐⭐⭐ (4.4)</p>
+Qty:
+<input type="number"
+id="limeQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Fresh Lime Soda',50,'limeQty')">
+Add to Cart
+</button>
+</div>
+
+<div class="card" data-cat="drinks">
+<img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=1000&q=80" data-emoji="🥤" onerror="var l=(this.dataset.alt||'').split('|').filter(Boolean);if(l.length){this.dataset.alt=l.slice(1).join('|');this.src=l[0];}else{this.onerror=null;var d=document.createElement('div');d.className='img-fallback';d.textContent=this.dataset.emoji;this.replaceWith(d);}">
+<h2>Milkshake</h2>
+<p class="price">₹120</p>
+<p class="rating">⭐⭐⭐⭐ (4.7)</p>
+Qty:
+<input type="number"
+id="milkshakeQty"
+class="qty"
+value="1"
+min="1">
+
+<button onclick="addToCart('Milkshake',120,'milkshakeQty')">
+Add to Cart
+</button>
+</div>
+
+
+</div>
+
+</div>
+<div id="contactPage" class="page">
+
+<div class="contact-box">
+
+<h1>Contact Us</h1>
+
+<p>
+📞 9876543210
+</p>
+
+<p>
+📧 fastfood@gmail.com
+</p>
+
+<p>
+📍 Chennai, Tamil Nadu
+</p>
+
+<button onclick="showPage('homePage')">
+Back to Home
+</button>
+
+</div>
+
+</div>
+
+<div id="orderPage" class="page">
+
+<div class="box">
+
+<h1>
+✅ Order Placed!
+</h1>
+
+<p>
+Thank you for your order 🍔🍕
+</p>
+
+<p class="order-id">Order ID: <strong id="orderId"></strong></p>
+
+<div class="tracker">
+<div class="step" id="st1"><i>🧑‍🍳</i><span>Preparing</span></div>
+<div class="step" id="st2"><i>🛵</i><span>On the way</span></div>
+<div class="step" id="st3"><i>🏠</i><span>Delivered</span></div>
+</div>
+
+<button onclick="goHome()">
+Go to Home
+</button>
+
+</div>
+
+</div>
+
+<div id="cartDrawer" class="drawer">
+<div class="drawer-overlay" onclick="toggleCart(false)"></div>
+<aside class="drawer-panel">
+<div class="drawer-head"><h2>🛒 Your Cart</h2><button class="icon-btn" onclick="toggleCart(false)">✕</button></div>
+<div id="cartItems"></div>
+<div class="drawer-foot">
+<div class="sum">Total <strong>₹<span id="drawerTotal">0</span></strong></div>
+<button onclick="placeOrder()">📦 Place Order</button>
+</div>
+</aside>
+</div>
+<div id="toasts"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
